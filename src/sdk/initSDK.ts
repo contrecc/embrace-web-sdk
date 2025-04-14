@@ -21,6 +21,7 @@ import {
 import {
   EmbraceLogManager,
   EmbraceSpanSessionManager,
+  EmbraceTraceManager,
   EmbraceUserManager,
 } from '../managers/index.js';
 import {
@@ -34,6 +35,7 @@ import { isValidAppID } from './utils.js';
 import { setupDefaultInstrumentations } from './setupDefaultInstrumentations.js';
 import { createSessionSpanProcessor } from '@opentelemetry/web-common';
 import { log } from '../api-logs/index.js';
+import { trace } from '../api-traces/index.js';
 import type {
   SDKControl,
   SDKInitConfig,
@@ -153,6 +155,9 @@ const setupTraces = ({
   propagator = null,
   contextManager = null,
 }: SetupTracesArgs) => {
+  const embraceTraceManager = new EmbraceTraceManager();
+  trace.setGlobalTraceManager(embraceTraceManager);
+
   const finalSpanProcessors: SpanProcessor[] = [
     ...spanProcessors,
     createSessionSpanProcessor(spanSessionManager),
