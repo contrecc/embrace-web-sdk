@@ -337,6 +337,20 @@ from [Custom exporters](#custom-exporters) or else the SDK considers the configu
 
 ## Troubleshooting
 
+### Compatibility with OTel packages
+
+The SDK is built on top of OpenTelemetry and as such it is possible to use it alongside other OTel libraries. If you
+wish to customize the sdk behaviour by configuring custom resources, exporters, processors or instrumentations you
+should make sure to use versions of the OTel packages that are compatible with what the SDK uses. The next table
+summarizes those compatible versions of the OTel packages:
+
+| Open Telemetry APIs | Core  | Instrumentations & Contrib |
+|---------------------|-------|----------------------------|
+| ^1.9.0              | ^1.30 | ^0.57.0                    |
+
+For a full list of dependencies used by the SDK, please refer to the [package.json](./package.json)
+and [package-lock.json](./package-lock.json) files.
+
 ### Turning on verbose logging in the SDK
 
 By default, the SDK will only send error level logs to the console. The log level of the SDK can be increased when
