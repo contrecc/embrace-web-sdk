@@ -6,16 +6,17 @@ export interface TraceAPIArgs {
   proxyTraceManager: ProxyTraceManager;
 }
 
-export type PerformanceSpanFailedOptions = {
-  code?: PerformanceSpanFailureCode;
+export type ExtendedSpanFailureCode = 'failure' | 'user_abandon';
+
+export type ExtendedSpanFailedOptions = {
+  code?: ExtendedSpanFailureCode;
   endTime?: TimeInput;
 };
-export type PerformanceSpanFailureCode = 'failure' | 'user_abandon';
 
-export interface PerformanceSpan extends Span {
-  fail: (options?: PerformanceSpanFailedOptions) => void;
+export interface ExtendedSpan extends Span {
+  fail: (options?: ExtendedSpanFailedOptions) => void;
 }
 
-export type PerformanceSpanOptions = SpanOptions & {
+export type ExtendedSpanOptions = SpanOptions & {
   parentSpan?: Span;
 };

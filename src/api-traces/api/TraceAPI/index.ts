@@ -1,6 +1,6 @@
 export { TraceAPI } from './TraceAPI.js';
 export type {
-  PerformanceSpan,
-  PerformanceSpanFailedOptions,
-  PerformanceSpanOptions,
+  ExtendedSpan,
+  ExtendedSpanFailedOptions,
+  ExtendedSpanOptions,
 } from './types.js';
