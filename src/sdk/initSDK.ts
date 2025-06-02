@@ -226,7 +226,7 @@ const setupLogs = ({
   logProcessors,
   spanSessionManager,
 }: SetupLogsArgs) => {
-  const embraceLogManager = new EmbraceLogManager();
+  const embraceLogManager = new EmbraceLogManager({ spanSessionManager });
   log.setGlobalLogManager(embraceLogManager);
 
   const loggerProvider = new LoggerProvider({
