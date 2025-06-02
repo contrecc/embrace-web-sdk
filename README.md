@@ -123,8 +123,8 @@ import { log } from '@embrace-io/web-sdk';
 
 log.message('Loading not finished in time.', 'error', {
   attributes: {
-     propertyA: 'valueA',
-     propertyB: 'valueB'
+    propertyA: 'valueA',
+    propertyB: 'valueB'
   }
 });
 ```
@@ -141,11 +141,12 @@ import { log } from '@embrace-io/web-sdk';
 try {
   // some operation...
 } catch (e) {
-  log.logException(e as Error, true, {
-     attributes: {
-       propertyA: 'valueA',
-       propertyB: 'valueB'
-     }
+  log.logException(e as Error, {
+    handled: true,
+    attributes: {
+      propertyA: 'valueA',
+      propertyB: 'valueB'
+    }
   });
 }
 ```
@@ -348,8 +349,7 @@ initializing the sdk as in the following example:
    });
    ```
 
-   > [!NOTE]
-   > It is simplest to use this specific string since that is what our CLI tool will look for by default, however any 32
+   > NOTE: It is simplest to use this specific string since that is what our CLI tool will look for by default, however any 32
    > character string would be valid. If you do use another value make sure to specify it using the
    > `--template-bundle-id` flag when invoking `embrace-web-cli upload`
 
