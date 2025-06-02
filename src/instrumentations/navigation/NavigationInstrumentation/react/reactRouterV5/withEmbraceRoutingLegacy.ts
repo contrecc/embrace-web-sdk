@@ -6,10 +6,10 @@ import type {
 } from './types.js';
 import { getNavigationInstrumentation } from '../../index.js';
 
-export const withEmbraceRouting = <P extends RouteComponentProps>(
+export const withEmbraceRoutingLegacy = <P extends RouteComponentProps>(
   WrappedComponent: React.ComponentType<P>
 ) => {
-  const RouteWithEmbraceRouting: React.FC<P> = (props: P) => {
+  const RouteWithEmbraceRoutingLegacy: React.FC<P> = (props: P) => {
     const navigationInstrumentation = getNavigationInstrumentation();
     // Make sure this is Route component
     if (props.path) {
@@ -29,8 +29,8 @@ export const withEmbraceRouting = <P extends RouteComponentProps>(
   };
 
   // Keep wrapped component metadata
-  RouteWithEmbraceRouting.displayName = `withEmbraceRouting(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
-  hoistNonReactStatics(RouteWithEmbraceRouting, WrappedComponent);
+  RouteWithEmbraceRoutingLegacy.displayName = `withEmbraceRoutingLegacy(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+  hoistNonReactStatics(RouteWithEmbraceRoutingLegacy, WrappedComponent);
 
-  return RouteWithEmbraceRouting;
+  return RouteWithEmbraceRoutingLegacy;
 };

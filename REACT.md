@@ -11,23 +11,23 @@ To instrument React Router, add the react router navigation instrumentation when
 
 ```typescript
 import { sdk } from '@embrace-io/web-sdk';
-import { createReactRouterNavigationInstrumentation } from '@embrace-io/web-sdk/react-instrumentation';
+import { createReactRouterV5NavigationInstrumentation } from '@embrace-io/web-sdk/react-instrumentation';
 
 sdk.initSDK({
   // ...Other configs
-  instrumentations: [createReactRouterNavigationInstrumentation()],
+  instrumentations: [createReactRouterV5NavigationInstrumentation()],
 })
 ```
 
 ### React Router V4/V5
 
-If you're using React Router V4 or V5, you can use the `withEmbraceRouting` higher-order component (HOC) to wrap your `Route` components. This will automatically track route changes. `EmbraceRoute` needs to be surrounded by a `<Switch>` component to properly capture the current path.
+If you're using React Router V4 or V5, you can use the `withEmbraceRoutingLegacy` higher-order component (HOC) to wrap your `Route` components. This will automatically track route changes. `EmbraceRoute` needs to be surrounded by a `<Switch>` component to properly capture the current path.
 
 ```typescript jsx
-import { withEmbraceRouting } from '@embrace-io/web-sdk/react-instrumentation';
+import { withEmbraceRoutingLegacy } from '@embrace-io/web-sdk/react-instrumentation';
 import { Route, Router, Switch } from 'react-router-dom';
 
-const EmbraceRoute = withEmbraceRouting(Route);
+const EmbraceRoute = withEmbraceRoutingLegacy(Route);
 
 const App = () => {
   return (
@@ -38,6 +38,29 @@ const App = () => {
         <EmbraceRoute path="/contact" component={Contact} />
       </Switch>
     </Router>
+  )
+}
+```
+
+### React Router V6+ in declarative mode
+
+If you're using React Router V6 or later, you can use the `withEmbraceRouting` higher-order component (HOC) to wrap your `Routes` components. This will automatically track route changes. 
+
+```typescript jsx
+import { withEmbraceRouting } from '@embrace-io/web-sdk/react-instrumentation';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+
+const EmbraceRoutes = withEmbraceRouting(Routes);
+
+const App = () => {
+  return (
+    <BrowserRouter>
+      <EmbraceRoutes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </EmbraceRoutes>
+    </BrowserRouter>
   )
 }
 ```

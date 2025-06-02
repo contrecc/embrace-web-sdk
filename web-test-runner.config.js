@@ -6,7 +6,10 @@ import { playwrightLauncher } from '@web/test-runner-playwright';
 
 // Generated on purpose in src/instrumentations/exceptions/GlobalExceptionInstrumentation/GlobalExceptionInstrumentation.test.ts
 const removeGlobalExceptionTestError = ({ args }) =>
-  !args.some(arg => typeof arg == 'string' && arg.includes('GlobalExceptionTestErrorName'));
+  !args.some(
+    arg =>
+      typeof arg == 'string' && arg.includes('GlobalExceptionTestErrorName')
+  );
 
 export default {
   nodeResolve: true,
