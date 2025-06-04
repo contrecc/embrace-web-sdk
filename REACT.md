@@ -7,15 +7,17 @@ Besides using the `traces` and `logs` APIs, the Embrace Web SDK provides a set o
 
 ## React Router
 
-To instrument React Router, add the react router navigation instrumentation when you init the Embrace Web SDK.
+To instrument React Router, add the React Router navigation instrumentation when you init the Embrace Web SDK.
 
 ```typescript
 import { sdk } from '@embrace-io/web-sdk';
-import { createReactRouterV5NavigationInstrumentation } from '@embrace-io/web-sdk/react-instrumentation';
+import { createReactRouterNavigationInstrumentation } from '@embrace-io/web-sdk/react-instrumentation';
 
 sdk.initSDK({
   // ...Other configs
-  instrumentations: [createReactRouterV5NavigationInstrumentation()],
+  instrumentations: [
+    createReactRouterNavigationInstrumentation(),
+  ],
 })
 ```
 
@@ -82,6 +84,53 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
       </EmbraceRoutes>
     </BrowserRouter>
+  )
+}
+```
+
+### React Router V6+ in data mode
+
+When using data mode in React Router, you can listen to browser changes using `listenToRouterChanges` to automatically track route changes.
+
+```typescript jsx
+import { listenToRouterChanges } from '@embrace-io/web-sdk/react-instrumentation';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  matchRoutes,
+} from 'react-router-dom';
+import { useEffect } from 'react';
+
+const router = createBrowserRouter([
+  {
+    path: '/home',
+    element: <Home />,
+  },
+  {
+    path: '/about',
+    element: <About />,
+  },
+  {
+    path: '/contact',
+    element: <Contact />,
+  }
+]);
+
+const App = () => {
+  useEffect(() => {
+    // It's important that `listenToRouterChanges` is called on a useEffect so it starts tracking routes once the App is mounted.
+    // Otherwise some early telemetry can be missed if this gets initialized too early.
+    // Return the cleanup function to stop listening to route changes when the component unmount.
+    return listenToRouterChanges({
+      router,
+      // Use `matchRoutes` from React Router to match the current route.
+      routesMatcher: matchRoutes,
+    });
+    // Set an empty dependency array to run this effect only once.
+  }, []);
+
+  return (
+    <RouterProvider router={router} />
   )
 }
 ```
