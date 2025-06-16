@@ -1,9 +1,8 @@
 .idea/
 node_modules
 build
-demo/.DS_Store
+dist
 /docs/
 /coverage/
-**/.DS_Store
-/tsconfig.*.tsbuildinfo
-/tsconfig.tsbuildinfo
+.DS_Store
+*.tsbuildinfo
